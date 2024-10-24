@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hit
   - Bottom
+  - GameManager
   layers:
   - Default
   - TransparentFX

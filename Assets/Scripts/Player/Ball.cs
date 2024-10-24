@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float level2Speed = 5f;
     [SerializeField] float level3Speed = 5f;
 
+
     private GameObject _player;
     private int ballLevel = 1;
     private int hitAmount = 0;
@@ -17,11 +18,13 @@ public class Ball : MonoBehaviour
     private float currentSpeed;
     
     private bool isOnPlayer = true;
-
+    private ManageGame _manageGame;
+    
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _player = GameObject.FindWithTag("Player");
+        _manageGame = GameObject.FindWithTag("GameManager").GetComponent<ManageGame>();
     }
 
     private void Update()
@@ -53,11 +56,22 @@ public class Ball : MonoBehaviour
 
         if (other.CompareTag("Bottom"))
         {
-            HitBottom();
+            _manageGame.BallLost();
+            ReturnToPlayer();
+        }
+
+       
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            ReturnToPlayer();
         }
     }
 
-    void HitBottom()
+    void ReturnToPlayer()
     {
         _rigidbody2D.velocity = Vector2.zero;
         hitAmount = 0;
