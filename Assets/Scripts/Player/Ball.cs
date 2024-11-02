@@ -12,7 +12,6 @@ public class Ball : MonoBehaviour
 
 
     private GameObject _player;
-    private int ballLevel = 1;
     private int hitAmount = 0;
 
     private float currentSpeed;
@@ -44,7 +43,9 @@ public class Ball : MonoBehaviour
             hitAmount++;
             if (hitAmount == 3 || hitAmount == 6 || hitAmount == 9)
             {
-                ballLevel++;
+                _manageGame.IncreaseBallLevel();
+                //todo move this not here (observer again)
+                _player.GetComponent<Player>().IncreaseSpeed();
             }
             
             UpdateCurrentSpeed();
@@ -58,30 +59,27 @@ public class Ball : MonoBehaviour
         {
             _manageGame.BallLost();
             ReturnToPlayer();
+            _player.GetComponent<Player>().ResetSpeed();
         }
-
-       
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        
+        if (other.CompareTag("Grab"))
         {
             ReturnToPlayer();
         }
+       
     }
 
     void ReturnToPlayer()
     {
         _rigidbody2D.velocity = Vector2.zero;
         hitAmount = 0;
-        ballLevel = 1;
+       _manageGame.ballLevel = 1;
         isOnPlayer = true;
     }
     
     void UpdateCurrentSpeed()
     {
-        switch (ballLevel)
+        switch (_manageGame.ballLevel)
         {
             case 1:
                 currentSpeed = level1Speed;

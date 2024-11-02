@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class ManageGame : MonoBehaviour
 {
-    //todo make it with get set
     private int maxballAmount = 3;
     private int currentBallAmount;
+    public int ballLevel { get; set; } = 1;
 
+    
     [SerializeField] GameObject[] ballIcons;
 
     private void Start()
@@ -25,6 +26,12 @@ public class ManageGame : MonoBehaviour
         {
             Time.timeScale = 0;
         }
+    }
+    
+    //todo OBSERVER
+    public void IncreaseBallLevel()
+    {
+        ballLevel++;
     }
     
     // Update is called once per frame

@@ -10,12 +10,20 @@ public class Player : MonoBehaviour
     private PlayerInput _playerInput;
     private CharacterController _characterController;
     private PlayerInputActions playerInputActions;
-    
-    
-    [SerializeField] float moveSpeed = 5f;
-    [SerializeField] GameObject hitBox;
+
+
+    private float moveSpeed;
+    [SerializeField] float level1Movespeed = 5f;
+    [SerializeField] float level2Movespeed = 8f;
+    [SerializeField] float level3Movespeed = 11f;
     
     bool canHit = true;
+
+    
+    [SerializeField] GameObject hitBox;
+    
+    private ManageGame _manageGame;
+    
     // Start is called before the first frame update    
     void Awake()
     {
@@ -25,6 +33,9 @@ public class Player : MonoBehaviour
         playerInputActions =  new PlayerInputActions();
         playerInputActions.Enable();
         playerInputActions.Player.Fire.performed += Hit;
+        
+        moveSpeed = level1Movespeed;
+        _manageGame = GameObject.FindWithTag("GameManager").GetComponent<ManageGame>();
       
     }
     void Update()
@@ -45,7 +56,24 @@ public class Player : MonoBehaviour
         await Task.Delay(250);
         canHit = true;
     }
+    
+    public void IncreaseSpeed()
+    {
+        switch (_manageGame.ballLevel)
+        {
+            case 2:
+                moveSpeed = level2Movespeed;
+                break;
+            case 3:
+                moveSpeed = level3Movespeed;
+                break;
+        }
+    }
 
+    public void ResetSpeed()
+    {
+        moveSpeed = level1Movespeed;
+    }
     
     // Update is called once per frame
    

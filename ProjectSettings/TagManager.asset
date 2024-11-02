@@ -7,6 +7,8 @@ TagManager:
   - Hit
   - Bottom
   - GameManager
+  - Ball
+  - Grab
   layers:
   - Default
   - TransparentFX
