@@ -9,18 +9,19 @@ TagManager:
   - GameManager
   - Ball
   - Grab
+  - Damage
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ball
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Grab
+  - Ground
+  - Player
+  - Fire
+  - Brick
   - 
   - 
   - 

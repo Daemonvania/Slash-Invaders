@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManageGame : MonoBehaviour
+public class ManageGame : Subject
 {
     private int maxballAmount = 3;
     private int currentBallAmount;
@@ -16,12 +16,13 @@ public class ManageGame : MonoBehaviour
     {
         currentBallAmount = maxballAmount;
     }
-
-    //todo observer pattern
+    
     public void BallLost()
     {
         currentBallAmount--;
         ballIcons[currentBallAmount].SetActive(false);
+        ballLevel = 1;
+        NotifyObservers(GameActions.BallLost, this);
         if (currentBallAmount == 0)
         {
             Time.timeScale = 0;
@@ -32,6 +33,7 @@ public class ManageGame : MonoBehaviour
     public void IncreaseBallLevel()
     {
         ballLevel++;
+        NotifyObservers(GameActions.BallLevelUp, this);
     }
     
     // Update is called once per frame
@@ -39,4 +41,5 @@ public class ManageGame : MonoBehaviour
     {
         
     }
+    
 }
