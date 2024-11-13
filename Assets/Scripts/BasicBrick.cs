@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BasicBrick : Brick
 {
-    
     public override void TakeDamage(int damage)
     {
         health -= damage;
@@ -34,6 +34,11 @@ public class BasicBrick : Brick
 
     public override void Die()
     {
+        if (Random.Range(0, 100) < 25)
+        {
+            Debug.Log("PowerUp");
+            Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 }

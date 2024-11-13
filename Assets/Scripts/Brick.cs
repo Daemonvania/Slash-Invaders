@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class Brick : MonoBehaviour
 {
+    [SerializeField] public GameObject powerUpPrefab;
+    
     public int health = 3;
     
     public abstract void TakeDamage(int damage);
