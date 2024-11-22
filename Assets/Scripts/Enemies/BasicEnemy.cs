@@ -15,7 +15,7 @@ public class BasicEnemy : EnemyCore
      void Start()
     {
         base.Start();
-        hitBox.enabled = false;
+        // hitBox.enabled = false;
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -27,16 +27,21 @@ public class BasicEnemy : EnemyCore
                 Vector2 playerPos = new Vector2(player.transform.position.x, transform.position.y);
                 Vector2 direction = (playerPos - rb.position).normalized;
                 rb.velocity = direction * walkSpeed;
+                
+                if (direction.x > 0)
+                    transform.localScale = new Vector3(1, 1, 1); // Face right
+                else if (direction.x < 0)
+                    transform.localScale = new Vector3(-1, 1, 1); // Face left
             }
         }
         else
         {
-            if (canAttack)
-            {
-                canAttack = false;
-                
-                StartCoroutine(Attack());
-            }
+            // if (canAttack)
+            // {
+            //     canAttack = false;
+            //     
+            //     StartCoroutine(Attack());
+            // }
         }
     }
 

@@ -34,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         await Task.Delay(Mathf.RoundToInt(invincibilityTimeConverted));
+        Debug.Log("CanTakeDamage");
         canTakeDamage = true;
     }
 
